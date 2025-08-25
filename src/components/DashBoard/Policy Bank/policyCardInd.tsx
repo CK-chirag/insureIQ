@@ -21,8 +21,9 @@ const PolicyCardInd: React.FC = () => {
                     <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 21C12 21 4 13.5 4 8.5C4 5.42 6.42 3 9.5 3C11.24 3 12.91 4.01 13.44 5.61C13.97 4.01 15.64 3 17.38 3C20.46 3 22.88 5.42 22.88 8.5C22.88 13.5 15.88 21 12 21Z" strokeWidth="2" /></svg>
                 </span>
                 <div>
-                    <div className="font-semibold text-lg text-gray-900">Comprehensive Health Plus</div>
+                    <div className="font-semibold text-md text-gray-900">Comprehensive Health Plus</div>
                     <div className="text-sm text-gray-500">HealthSecure Pro</div>
+                    <div className="text-sm text-gray-500"><b>Expires:</b> 15-12-2027</div>
                 </div>
             </div>
             {/* Price and Coverage */}

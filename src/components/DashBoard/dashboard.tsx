@@ -3,6 +3,20 @@ import { useNavigate } from "react-router";
 import PolicyBank from "./Policy Bank/policybank";
 import logout from '../../assets/logout-svgrepo-com.png';
 
+// Example inline SVGs for nav buttons (replace with your own or import SVGs)
+const navIcons = [
+    // Policy Bank
+    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="4" y="6" width="16" height="12" rx="2" strokeWidth="2"/><path d="M4 10h16" strokeWidth="2"/></svg>,
+    // Group Management
+    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="8" cy="8" r="3" strokeWidth="2"/><circle cx="16" cy="8" r="3" strokeWidth="2"/><path d="M2 20c0-3.314 2.686-6 6-6s6 2.686 6 6" strokeWidth="2"/><path d="M14 20c0-3.314 2.686-6 6-6" strokeWidth="2"/></svg>,
+    // Policy Genie
+    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" strokeWidth="2"/><path d="M8 12h8M12 8v8" strokeWidth="2"/></svg>,
+    // Renewal
+    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" strokeWidth="2"/><circle cx="12" cy="12" r="5" strokeWidth="2"/></svg>,
+    // Requests
+    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="4" y="4" width="16" height="16" rx="2" strokeWidth="2"/><path d="M8 10h8M8 14h6" strokeWidth="2"/></svg>
+];
+
 const menuItems = [
     { label: "Policy Bank" },
     { label: "Group Management" },
@@ -39,13 +53,14 @@ const Dashboard: React.FC = () => {
                         {menuItems.map((item, idx) => (
                             <button
                                 key={item.label}
-                                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-normal transition ${active === idx
+                                className={`flex items-center gap-3 px-4 py-2 rounded-lg font-normal transition ${active === idx
                                         ? 'bg-[var(--color-custom-blue)] text-white shadow-md'
                                         : 'text-gray-600 hover:bg-blue-50'
                                     }`}
                                 onClick={() => setActive(idx)}
                                 style={active === idx ? { background: 'var(--color-custom-blue)', color: '#fff' } : {}}
                             >
+                                <span className="w-6 h-6 flex items-center justify-center">{navIcons[idx]}</span>
                                 <span>{item.label}</span>
                             </button>
                         ))}

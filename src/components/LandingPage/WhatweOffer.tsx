@@ -10,8 +10,7 @@ const offers = [
 				</svg>
 			</span>
 		),
-		title: "Premium Analysis",
-		badge: "Popular",
+		title: "Automated Claim Assistance",
 		badgeColor: "bg-blue-600",
 		subtitle: "AI-Powered Insights",
 		description: "Get detailed analysis of your premium structure",
@@ -24,8 +23,7 @@ const offers = [
 				</svg>
 			</span>
 		),
-		title: "Coverage Optimizer",
-		badge: "New",
+		title: "Policy Genie - Ai based policy guidance",
 		badgeColor: "bg-blue-400",
 		subtitle: "Maximize Protection",
 		description: "Optimize your coverage for better protection",
@@ -44,7 +42,6 @@ const WhatweOffer: React.FC = () => {
 							<div>
 								<div className="flex items-center gap-2 mb-1">
 									<span className="text-white font-semibold text-base md:text-md">{offer.title}</span>
-									<span className={`text-xs font-semibold px-2 py-1 rounded ${offer.badgeColor} text-white`}>{offer.badge}</span>
 								</div>
 								<div className="text-blue-200 text-xs md:text-base">{offer.subtitle}</div>
 								<div className="text-blue-300 text-xs md:text-sm">{offer.description}</div>
