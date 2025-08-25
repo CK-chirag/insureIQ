@@ -29,7 +29,7 @@ const UploadPolicy: React.FC = () => {
 				<div className="border-2 border-dashed border-blue-400 rounded-xl w-full h-20 flex items-center justify-center mb-2">
 					<img src={UploadSvg} alt="Upload" width={28} height={28} />
 				</div>
-                <Button text="Upload Document"/>
+                <Button className="w-full" text="Upload Document"/>
 			</div>
 		</div>
 	);
