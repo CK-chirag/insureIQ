@@ -39,7 +39,7 @@ const Dashboard: React.FC = () => {
                         {menuItems.map((item, idx) => (
                             <button
                                 key={item.label}
-                                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition ${active === idx
+                                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-normal transition ${active === idx
                                         ? 'bg-[var(--color-custom-blue)] text-white shadow-md'
                                         : 'text-gray-600 hover:bg-blue-50'
                                     }`}
