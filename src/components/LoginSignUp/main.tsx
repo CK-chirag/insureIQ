@@ -18,13 +18,13 @@ const MainAuth: React.FC = () => {
                             <LoginCard setIsSignUp={setIsSignUp} />
                         </div>
                         <div className="w-1/2 h-full flex items-center justify-center">
-                            <SideSection />
+                            <SideSection variant="login" />
                         </div>
                     </>
                 ) : (
                     <>
                         <div className="w-1/2 h-full flex items-center justify-center">
-                            <SideSection />
+                            <SideSection variant="signup" />
                         </div>
                         <div className="w-1/2 h-full flex items-center justify-center">
                             <SignUpCard setIsSignUp={setIsSignUp} />
