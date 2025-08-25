@@ -1,0 +1,20 @@
+/* Import DM Sans font from Google Fonts - MUST be first */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
+/* Import Tailwind CSS */
+@import "tailwindcss";
+
+@theme {
+  --font-family-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-custom-blue: #0055DE;
+}
+
+/* Global styles */
+* {
+  font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  color: #1a1b1b;
+}
