@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PolicyCardInd from "./policyCardInd";
 import PolicyCardGrp from "./policyCardGrp";
-import Button from "../../commonComp/Button";
 
 const PolicyBank: React.FC = () => {
 	const [activeTab, setActiveTab] = useState<'policies' | 'calendar'>('policies');

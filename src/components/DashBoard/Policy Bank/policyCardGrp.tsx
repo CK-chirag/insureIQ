@@ -1,5 +1,4 @@
 import React from "react";
-import Button from '../../commonComp/Button';
 import { useNavigate } from "react-router-dom";
 
 const PolicyCardGrp: React.FC = () => {
