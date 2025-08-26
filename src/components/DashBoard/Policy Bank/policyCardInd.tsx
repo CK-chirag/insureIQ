@@ -12,7 +12,7 @@ const PolicyCardInd: React.FC = () => {
                 fontFamily: 'DM Sans, ui-sans-serif, system-ui, sans-serif',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
             }}
-            onClick={() => navigate("/policy-details")}
+            onClick={() => navigate("/dashboard/policy-details", { state: { isGroup: false } })}
         >
             {/* Image */}
             <div className="w-full h-40 rounded-t-xl overflow-hidden">

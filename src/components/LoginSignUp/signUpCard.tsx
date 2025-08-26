@@ -23,10 +23,34 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setIsSignUp }) => {
                         <input type="text" id="fullname" className="w-full px-4 py-2 rounded-lg border border-gray-400 focus:outline-none focus:ring-2"
                             style={{ '--tw-ring-color': 'var(--color-custom-blue)' } as React.CSSProperties} placeholder="Enter your full name" required />
                     </div>
-                    <div>
-                        <label htmlFor="mobile" className="block text-sm font-medium text-gray-700 mb-1">Mobile Number *</label>
-                        <input type="tel" id="mobile" className="w-[300px] px-4 py-2 rounded-lg border border-gray-400 focus:outline-none focus:ring-2"
-                            style={{ '--tw-ring-color': 'var(--color-custom-blue)' } as React.CSSProperties} placeholder="Enter your 10-digit mobile number" required />
+                    <div className="flex flex-col space-y-1 w-full max-w-sm">
+                        <label
+                            htmlFor="mobile"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            Mobile Number *
+                        </label>
+                        <div className="flex rounded-md overflow-hidden border border-gray-300 hover:border-[var(--color-custom-blue)] focus-within:border-[var(--color-custom-blue)] focus-within:ring-2 focus-within:ring-[var(--color-custom-blue)]">
+                            <select
+                                id="countryCode"
+                                name="countryCode"
+                                className="px-3 py-2 bg-gray-50 text-gray-700 focus:outline-none focus:ring-0 border-r border-gray-300"
+                                defaultValue="+91"
+                            >
+                                <option value="+91">+91 (IN)</option>
+                                <option value="+1">+1 (US)</option>
+                                <option value="+44">+44 (UK)</option>
+                                <option value="+61">+61 (AU)</option>
+                                <option value="+971">+971 (UAE)</option>
+                            </select>
+                            <input
+                                type="tel"
+                                id="mobile"
+                                placeholder="10-digit number"
+                                className="flex-1 px-4 py-2 text-gray-700 focus:outline-none"
+                                required
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className="flex flex-row gap-2">
