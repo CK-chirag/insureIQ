@@ -7,7 +7,7 @@ const PolicyBank: React.FC = () => {
 	const [activeTab, setActiveTab] = useState<'policies' | 'calendar'>('policies');
 
 	return (
-		<div className="w-full max-w-5xl mx-auto py-8" style={{ fontFamily: 'DM Sans, ui-sans-serif, system-ui, sans-serif' }}>
+		<div className="w-full max-w-5xl mx-auto py-8 mb-5" style={{ fontFamily: 'DM Sans, ui-sans-serif, system-ui, sans-serif' }}>
 			{/* Heading */}
 			<h1 className="text-3xl font-bold text-gray-900 mb-2">Policy Bank</h1>
 			{/* Subheading Tabs Row */}
@@ -30,31 +30,42 @@ const PolicyBank: React.FC = () => {
 				</div>
 				{/* Right side options */}
 				<div className="flex gap-2 pb-10">
-								{activeTab === 'policies' && (
-												<Button type="button" className="bg-white px-2 py-2 rounded-lg font-semibold flex items-center justify-center group">
-													<svg width="22" height="22" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-200 group-hover:scale-125">
-														<circle cx="12" cy="12" r="12" fill="#0A2A5B" />
-														<path d="M8 8h8l-3.5 5v3l-1 1v-4l-3.5-5z" fill="white" />
-													</svg>
-												</Button>
-								)}
-								{activeTab === 'calendar' && (
-									<>
-										<Button type="button" className="bg-[var(--color-custom-blue)] text-white px-4 py-2 rounded-lg font-normal flex items-center justify-center group">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-200 group-hover:scale-125">
-												<path d="M12 16V4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-												<path d="M8 12l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-												<rect x="6" y="16" width="12" height="4" rx="2" fill="currentColor" />
-											</svg>
-										</Button>
-														<Button type="button" className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-semibold flex items-center justify-center group">
-															<svg width="22" height="22" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-200 group-hover:scale-125">
-																<circle cx="12" cy="12" r="12" fill="#0A2A5B" />
-																<path d="M8 8h8l-3.5 5v3l-1 1v-4l-3.5-5z" fill="white" />
-															</svg>
-														</Button>
-									</>
-								)}
+					{activeTab === 'policies' && (
+						<button
+							type="button"
+							className="p-3 rounded-md shadow hover:bg-gray-100 transition group flex items-center justify-center"
+						>
+							<img
+								className="w-[20px] h-[20px] mx-auto transition-transform duration-200 group-hover:scale-125"
+								src="https://cdn-icons-png.flaticon.com/512/107/107799.png"
+								alt="filter"
+							/>
+						</button>
+					)}
+					{activeTab === 'calendar' && (
+						<>
+							<button
+								type="button"
+								className="p-3 rounded-md shadow hover:bg-gray-100 transition group flex items-center justify-center"
+							>
+								<img
+									className="w-[20px] h-[20px] mx-auto transition-transform duration-200 group-hover:scale-125"
+									src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQllvPxnn1j5oJACPEsZH_50lKgdTc9ZtBkEcRLSbXseSQN1NRH3qQp3fOjpEmL69a4AA&usqp=CAU"
+									alt="filter"
+								/>
+							</button>
+							<button
+								type="button"
+								className="p-3 rounded-md shadow hover:bg-gray-100 transition group flex items-center justify-center"
+							>
+								<img
+									className="w-[20px] h-[20px] mx-auto transition-transform duration-200 group-hover:scale-125"
+									src="https://cdn-icons-png.flaticon.com/512/107/107799.png"
+									alt="filter"
+								/>
+							</button>
+						</>
+					)}
 				</div>
 			</div>
 			{/* Tab Content */}

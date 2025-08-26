@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Header: React.FC = () => {
 	return (
-		<header className="w-full px-[154px] pt-[60px] pb-6 flex items-center justify-between bg-transparent">
+		<header className="w-full px-[165px] pt-[60px] pb-6 flex items-center justify-between bg-transparent">
 			{/* Left: Logo and Title */}
 			<div className="flex items-center gap-3">
 				<div className="rounded-lg w-10 h-10 flex items-center justify-center" style={{ backgroundColor: 'var(--color-custom-blue)' }}>
