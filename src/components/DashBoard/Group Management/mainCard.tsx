@@ -68,6 +68,12 @@ const MainPageGroupManagement: React.FC<MainPageGroupManagementProps> = ({
         // Add your export logic here
     };
 
+    const handleAddMember = () => {
+        console.log('Add member clicked');
+        onAddMember?.();
+        // Add your add member logic here
+    };
+
     return (
         <div className="min-h-screen bg-gray-50 p-6 sm:p-8 lg:px-24 lg:py-10">
             <div className="max-w-7xl mx-auto">
@@ -90,7 +96,8 @@ const MainPageGroupManagement: React.FC<MainPageGroupManagementProps> = ({
 
                         {/* Add Member Button */}
                         <Button
-                            text="Export List"
+                            text="Add Member"
+                            onClick={handleAddMember}
                             icon={<svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                             </svg>}
