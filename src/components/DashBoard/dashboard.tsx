@@ -4,6 +4,8 @@ import PolicyBank from "./Policy Bank/policybank";
 import PolicyDetails from "./Policy Bank/policy details/policyDetails";
 import logout from '../../assets/logout-svgrepo-com.png';
 import Requests from "./Request/Request";
+import MainPageGroupManagement from "./Group Management/mainCard";
+import MainPageViewDetails from "./Request/Claims/ViewDetails/mainPageViewDetails";
 
 // Example inline SVGs for nav buttons
 const navIcons = [
@@ -19,7 +21,7 @@ const menuItems = [
     { label: "Group Management", path: "/dashboard/group-management" },
     { label: "Policy Genie", path: "/dashboard/policy-genie" },
     { label: "Renewal", path: "/dashboard/renewal" },
-    { label: "Requests", path: "/dashboard/requests" },
+    { label: "Requests", path: "/dashboard/requests/claim" },
 ];
 
 const Dashboard: React.FC = () => {
@@ -54,8 +56,8 @@ const Dashboard: React.FC = () => {
                                         to={item.path}
                                         onClick={() => setActive(index)}
                                         className={`w-full flex items-center gap-4 px-4 py-3 rounded-lg text-left transition-all duration-200 ${active === index
-                                                ? "bg-[var(--color-custom-blue)] text-white font-bold"
-                                                : "text-gray-700 hover:bg-gray-100"
+                                            ? "bg-[var(--color-custom-blue)] text-white font-bold"
+                                            : "text-gray-700 hover:bg-gray-100"
                                             }`}
                                     >
                                         <div className="w-6 h-6 flex items-center justify-center">
@@ -113,7 +115,9 @@ const Dashboard: React.FC = () => {
                     <Route path="/" element={<PolicyBank />} />
                     <Route path="policy-bank" element={<PolicyBank />} />
                     <Route path="policy-details" element={<PolicyDetails />} />
-                    <Route path="requests" element={<Requests />} />
+                    <Route path="requests/claim" element={<Requests />} />
+                    <Route path="requests/claims/view-details/:requestId" element={<MainPageViewDetails />} />
+                    <Route path="group-management" element={<MainPageGroupManagement/>}/>
                     <Route path="*" element={<div className="w-full h-full flex items-center justify-center text-gray-400 text-xl">Select a menu item</div>} />
                 </Routes>
             </main>

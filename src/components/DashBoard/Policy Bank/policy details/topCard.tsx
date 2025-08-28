@@ -12,23 +12,23 @@ const TopCard: React.FC<TopCardProps> = ({ isGroup }) => {
             <div className="flex items-start justify-between">
                 <div>
                     <div className="flex flex-row gap-4 items-start justify-start">
-                    <button
-                        type="button"
-                        className="p-2 rounded-lg hover:bg-gray-100 transition group flex items-center justify-center"
-                    >
-                        <img
-                            onClick={() => navigate("/dashboard")}
-                            className="w-[24px] h-[24px] mx-auto transition-transform duration-200 group-hover:scale-125"
-                            src="https://cdn-icons-png.flaticon.com/512/93/93634.png"
-                            alt="logout"
-                        />
-                    </button>
-                    <div>
-                        <h2 className="text-2xl font-bold text-gray-900 mb-1">
-                            Health Insurance
-                        </h2>
-                        <p className="text-sm text-gray-400">Policy No: 1234567890</p>
-                    </div>
+                        <button
+                            type="button"
+                            className="p-2 rounded-lg hover:bg-gray-100 transition group flex items-center justify-center"
+                        >
+                            <img
+                                onClick={() => navigate("/dashboard")}
+                                className="w-[24px] h-[24px] mx-auto transition-transform duration-200 group-hover:scale-125"
+                                src="https://cdn-icons-png.flaticon.com/512/93/93634.png"
+                                alt="logout"
+                            />
+                        </button>
+                        <div>
+                            <h2 className="text-2xl font-bold text-gray-900 mb-1">
+                                Health Insurance
+                            </h2>
+                            <p className="text-sm text-gray-400">Policy No: 1234567890</p>
+                        </div>
                     </div>
                 </div>
                 <div className="flex flex-row items-center justify-end gap-4">

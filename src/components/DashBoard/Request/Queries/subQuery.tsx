@@ -1,12 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
-const SubmittedQueries: React.FC = () => {
-    const navigate = useNavigate();
-
-    const handleViewDetails = (requestId: string) => {
-        navigate(`/dashboard/requests/claims/view-details/${requestId.replace('#', '')}`);
-    }
+const SubQueries: React.FC = () => {
     const requests = [
         {
             id: "#12345",
@@ -21,7 +15,7 @@ const SubmittedQueries: React.FC = () => {
         {
             id: "#67890",
             agent: {
-                name: "Agent Johnson", 
+                name: "Agent Johnson",
                 phone: "555-987-6543",
                 avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
             },
@@ -43,10 +37,13 @@ const SubmittedQueries: React.FC = () => {
     return (
         <div className="bg-white rounded-xl shadow-sm p-6 w-full" style={{ fontFamily: 'DM Sans, ui-sans-serif, system-ui, sans-serif' }}>
             {/* Header */}
+            <h1 className="mb-8 font-bold text-xl">
+                Submitted Queries
+            </h1>
             <div className="grid grid-cols-4 gap-4 pb-4 border-b border-gray-100 mb-4">
                 <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider">REQUEST ID</div>
                 <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider">ASSIGNED AGENT</div>
-                <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider">STATUS</div>
+                <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider">PHONE NUMBER</div>
                 <div></div>
             </div>
 
@@ -61,32 +58,21 @@ const SubmittedQueries: React.FC = () => {
 
                         {/* Agent Info */}
                         <div className="flex items-center gap-3">
-                            <img 
+                            <img
                                 src={request.agent.avatar}
                                 alt={request.agent.name}
                                 className="w-10 h-10 rounded-full object-cover"
                             />
                             <div>
                                 <div className="font-semibold text-gray-700 text-sm">{request.agent.name}</div>
-                                <div className="text-xs text-gray-400">{request.agent.phone}</div>
                             </div>
                         </div>
 
                         {/* Status */}
                         <div>
-                            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${request.statusColor}`}>
-                                {request.status}
+                            <span className='inline-flex items-center px-3 py-1 text-sm text-gray-700 font-semibold'>
+                                {request.agent.phone}
                             </span>
-                        </div>
-
-                        {/* View Details */}
-                        <div className="text-right">
-                            <button onClick={() => handleViewDetails(request.id)} className="text-[var(--color-custom-blue)] text-sm font-medium hover:text-[#0055DE] transition-colors inline-flex items-center gap-1 hover:cursor-pointer hover:underline">
-                                View Details
-                                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                                </svg>
-                            </button>
                         </div>
                     </div>
                 ))}
@@ -95,4 +81,4 @@ const SubmittedQueries: React.FC = () => {
     );
 };
 
-export default SubmittedQueries;
+export default SubQueries;

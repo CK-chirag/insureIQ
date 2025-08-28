@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { RaiseClaim } from "./Claims/raiseClaim";
 import SubmittedQueries from "./Claims/submittedQuery";
+import { RaiseQuery } from "./Queries/raiseQueries";
+import SubQueries from "./Queries/subQuery";
 
 const Requests: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'claims' | 'queries'>('claims');
@@ -40,7 +42,14 @@ const Requests: React.FC = () => {
                 </div>
 
             ) : (
-                <div className="min-h-[300px] flex items-center justify-center text-gray-400">View Calendar (empty)</div>
+                <div className="flex flex-row gap-6 max-h-[600px] pr-2">
+                    <div className="basis-1/3">
+                        <RaiseQuery />
+                    </div>
+                    <div className="basis-2/3">
+                        <SubQueries />
+                    </div>
+                </div>
             )}
         </div>
     );
