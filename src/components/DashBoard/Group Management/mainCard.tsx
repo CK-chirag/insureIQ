@@ -1,7 +1,6 @@
 import React from 'react';
 import LeftCard from './leftCard';
 import RightList from './rightList';
-import { useNavigate } from 'react-router-dom';
 import Button from '../../commonComp/Button';
 
 interface GroupData {
@@ -44,7 +43,6 @@ const MainPageGroupManagement: React.FC<MainPageGroupManagementProps> = ({
     onExportList,
     onAddMember
 }) => {
-    const navigate = useNavigate();
 
     const handleViewDocuments = () => {
         console.log('View documents clicked');
@@ -68,12 +66,6 @@ const MainPageGroupManagement: React.FC<MainPageGroupManagementProps> = ({
         console.log('Export list clicked');
         onExportList?.();
         // Add your export logic here
-    };
-
-    const handleAddMember = () => {
-        console.log('Add member clicked');
-        onAddMember?.();
-        // Add your add member logic here
     };
 
     return (
