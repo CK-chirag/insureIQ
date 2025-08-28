@@ -97,7 +97,7 @@ const Dashboard: React.FC = () => {
                             </svg>
                         </div>
                         <div>
-                            <div className="font-bold text-lg text-gray-900">Policy Genie</div>
+                            <div className="font-bold text-lg text-gray-900">InsureVault</div>
                             <div className="text-xs text-gray-400">Hub</div>
                         </div>
                     </div>

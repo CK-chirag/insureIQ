@@ -11,7 +11,7 @@ const Header: React.FC = () => {
 					<span className="text-white font-bold text-lg">P</span>
 				</div>
 				<div className="flex flex-col">
-					<span className="text-white font-semibold text-lg leading-tight">PolicyAI</span>
+					<span className="text-white font-semibold text-lg leading-tight">InsureVault</span>
 					<span className="text-gray-300 text-xs leading-tight">Smart Insurance Solutions</span>
 				</div>
 			</div>
