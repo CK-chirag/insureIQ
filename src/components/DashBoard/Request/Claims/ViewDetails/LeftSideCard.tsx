@@ -156,7 +156,7 @@ const LeftSideCard: React.FC<LeftSideCardProps> = ({
           Request History
         </h3>
         <div className="space-y-4">
-          {requestHistory.map((item, index) => (
+          {requestHistory.map((item) => (
             <div key={item.id} className="flex items-start space-x-3">
               <div className="flex-shrink-0 mt-0.5">
                 {getStatusIcon(item.type)}
