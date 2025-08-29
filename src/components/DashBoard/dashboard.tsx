@@ -3,9 +3,10 @@ import { useNavigate, Routes, Route, Link } from "react-router-dom";
 import PolicyBank from "./Policy Bank/policybank";
 import PolicyDetails from "./Policy Bank/policy details/policyDetails";
 import logout from '../../assets/logout-svgrepo-com.png';
-import Requests from "./Request/Request";
 import MainPageGroupManagement from "./Group Management/mainCard";
-import MainPageViewDetails from "./Request/Claims/ViewDetails/mainPageViewDetails";
+import MainPageViewDetails from "./Claims/ViewDetails/mainPageViewDetails";
+import Claims from "./Claims/mainPageClaim";
+import Queries from "./Queries/mainPage";
 
 // Example inline SVGs for nav buttons
 const navIcons = [
@@ -13,7 +14,10 @@ const navIcons = [
     <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="8" cy="8" r="3" strokeWidth="2" /><circle cx="16" cy="8" r="3" strokeWidth="2" /><path d="M2 20c0-3.314 2.686-6 6-6s6 2.686 6 6" strokeWidth="2" /><path d="M14 20c0-3.314 2.686-6 6-6" strokeWidth="2" /></svg>,
     <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" strokeWidth="2" /><path d="M8 12h8M12 8v8" strokeWidth="2" /></svg>,
     <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" strokeWidth="2" /><circle cx="12" cy="12" r="5" strokeWidth="2" /></svg>,
-    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="4" y="4" width="16" height="16" rx="2" strokeWidth="2" /><path d="M8 10h8M8 14h6" strokeWidth="2" /></svg>
+    // Claim icon - Document with checkmark
+    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 12l2 2 4-4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><path d="M21 12c.552 0 1-.448 1-1V8a2 2 0 00-2-2h-5L9 4H4a2 2 0 00-2 2v13c0 1.104.896 2 2 2h16a2 2 0 002-2v-1c0-.552-.448-1-1-1z" strokeWidth="2" /></svg>,
+    // Query icon - Question mark in circle
+    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" strokeWidth="2" /><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><path d="M12 17h.01" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
 ];
 
 const menuItems = [
@@ -21,7 +25,8 @@ const menuItems = [
     { label: "Group Management", path: "/dashboard/group-management" },
     { label: "Policy Genie", path: "/dashboard/policy-genie" },
     { label: "Renewal", path: "/dashboard/renewal" },
-    { label: "Requests", path: "/dashboard/requests/claim" },
+    { label: "Claims", path: "/dashboard/claims" }, // Changed from "claim" to "claims"
+    { label: "Query", path: "/dashboard/query" },
 ];
 
 const Dashboard: React.FC = () => {
@@ -115,9 +120,10 @@ const Dashboard: React.FC = () => {
                     <Route path="/" element={<PolicyBank />} />
                     <Route path="policy-bank" element={<PolicyBank />} />
                     <Route path="policy-details" element={<PolicyDetails />} />
-                    <Route path="requests/claim" element={<Requests />} />
-                    <Route path="requests/claims/view-details/:requestId" element={<MainPageViewDetails />} />
-                    <Route path="group-management" element={<MainPageGroupManagement/>}/>
+                    <Route path="claims" element={<Claims />} />
+                    <Route path="claims/view-details/:requestId" element={<MainPageViewDetails />} />
+                    <Route path="query" element={<Queries />} />
+                    <Route path="group-management" element={<MainPageGroupManagement />} />
                     <Route path="*" element={<div className="w-full h-full flex items-center justify-center text-gray-400 text-xl">Select a menu item</div>} />
                 </Routes>
             </main>

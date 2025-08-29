@@ -48,18 +48,18 @@ const MainPageViewDetails: React.FC<MainPageViewDetailsProps> = ({
                             className="p-2 rounded-lg hover:bg-gray-100 transition group flex items-center justify-center"
                         >
                             <img
-                                onClick={() => navigate("/dashboard/requests/claim")}
+                                onClick={() => navigate("/dashboard/claims")}
                                 className="w-[24px] h-[24px] mx-auto transition-transform duration-200 group-hover:scale-125"
                                 src="https://cdn-icons-png.flaticon.com/512/93/93634.png"
-                                alt="logout"
+                                alt="back arrow"
                             />
                         </button>
                         <div className='flex flex-col '>
                             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                                Request Details
+                                Claim Details
                             </h1>
                             <p className="mt-2 text-sm text-gray-600">
-                                View and manage request information
+                                View and manage claim information
                             </p>
                         </div>
                     </div>
@@ -67,7 +67,7 @@ const MainPageViewDetails: React.FC<MainPageViewDetailsProps> = ({
 
                 {/* Main Content Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-                    {/* Left Side - Request Details & History */}
+                    {/* Left Side - Claim Details & History */}
                     <div className="space-y-6">
                         <LeftSideCard
                             requestId={requestData?.requestId}
