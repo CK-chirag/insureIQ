@@ -40,7 +40,20 @@ const PolicyCard: React.FC<PolicyCardProps> = ({
                 fontFamily: 'DM Sans, ui-sans-serif, system-ui, sans-serif',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
             }}
-            onClick={() => navigate("/dashboard/policy-details", { state: { isGroup: isGroup } })}
+            onClick={() =>
+                navigate("/dashboard/policy-details", {
+                    state: {
+                        isGroup,
+                        completionPercentage,
+                        isExpiringSoon,
+                        daysUntilExpiry,
+                        policyType,
+                        insurer,
+                        policyId,
+                        memberCount,
+                    },
+                })
+            }
         >
             {/* Image with Indicators */}
             <div className="relative w-full h-40 overflow-hidden rounded-t-xl">

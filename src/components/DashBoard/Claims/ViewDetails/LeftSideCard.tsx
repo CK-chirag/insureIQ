@@ -99,7 +99,7 @@ const LeftSideCard: React.FC<LeftSideCardProps> = ({
   return (
     <div className="space-y-6">
       {/* Request Details Card */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6 w-full max-w-md">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6 w-full">
         {/* Request Details Header */}
         <div className="mb-6">
           <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
@@ -151,7 +151,7 @@ const LeftSideCard: React.FC<LeftSideCardProps> = ({
       </div>
 
       {/* Request History Card */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6 w-full max-w-md">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6 w-full">
         <h3 className="text-base font-medium text-gray-900 mb-4">
           Request History
         </h3>

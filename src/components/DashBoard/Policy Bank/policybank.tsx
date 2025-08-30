@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PolicyCard from "./policyCard"; // Updated import
+import PolicyCalendar from "./policyCalender";
 
 const PolicyBank: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'policies' | 'calendar'>('policies');
@@ -42,7 +43,7 @@ const PolicyBank: React.FC = () => {
             isExpiringSoon: false, 
             daysUntilExpiry: 120, 
             isGroup: true, 
-            completionPercentage: 90,
+            completionPercentage: 100,
             policyType: "Health Insurance",
             insurer: "Star Health",
             policyId: "2394577643",
@@ -66,7 +67,7 @@ const PolicyBank: React.FC = () => {
     };
 
     return (
-        <div className="w-full max-w-5xl mx-auto py-8 mb-5" style={{ fontFamily: 'DM Sans, ui-sans-serif, system-ui, sans-serif' }}>
+        <div className="w-full max-w-[68rem] mx-auto py-8 mb-5" style={{ fontFamily: 'DM Sans, ui-sans-serif, system-ui, sans-serif' }}>
             {/* Heading */}
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Policy Bank</h1>
             {/* Subheading Tabs Row */}
@@ -146,7 +147,7 @@ const PolicyBank: React.FC = () => {
                     ))}
                 </div>
             ) : (
-                <div className="min-h-[300px] flex items-center justify-center text-gray-400">View Calendar (empty)</div>
+                <PolicyCalendar />
             )}
         </div>
     );

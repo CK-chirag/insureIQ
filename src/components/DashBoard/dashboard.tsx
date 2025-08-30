@@ -3,7 +3,6 @@ import { useNavigate, Routes, Route, Link } from "react-router-dom";
 import PolicyBank from "./Policy Bank/policybank";
 import PolicyDetails from "./Policy Bank/policy details/policyDetails";
 import logout from '../../assets/logout-svgrepo-com.png';
-import MainPageGroupManagement from "./Group Management/mainCard";
 import MainPageViewDetails from "./Claims/ViewDetails/mainPageViewDetails";
 import Claims from "./Claims/mainPageClaim";
 import Queries from "./Queries/mainPage";
@@ -22,7 +21,6 @@ const navIcons = [
 
 const menuItems = [
     { label: "Policy Bank", path: "/dashboard/policy-bank" },
-    { label: "Group Management", path: "/dashboard/group-management" },
     { label: "Policy Genie", path: "/dashboard/policy-genie" },
     { label: "Renewal", path: "/dashboard/renewal" },
     { label: "Claims", path: "/dashboard/claims" }, // Changed from "claim" to "claims"
@@ -93,7 +91,7 @@ const Dashboard: React.FC = () => {
             {/* Main Content */}
             <main className="flex-1 ml-72 overflow-y-auto min-h-screen">
                 {/* Top Bar */}
-                <div className="flex items-center justify-between bg-white px-24 pt-6 pb-4 mb-2" style={{ boxShadow: '0 4px 12px -4px rgba(0,0,0,0.10)' }}>
+                <div className="flex items-center justify-between bg-white px-16 pt-6 pb-4 mb-2" style={{ boxShadow: '0 4px 12px -4px rgba(0,0,0,0.10)' }}>
                     <div className="flex items-center gap-3">
                         <div className="bg-[var(--color-custom-blue)] rounded-full w-8 h-8 flex items-center justify-center">
                             <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="white">
@@ -123,7 +121,6 @@ const Dashboard: React.FC = () => {
                     <Route path="claims" element={<Claims />} />
                     <Route path="claims/view-details/:requestId" element={<MainPageViewDetails />} />
                     <Route path="query" element={<Queries />} />
-                    <Route path="group-management" element={<MainPageGroupManagement />} />
                     <Route path="*" element={<div className="w-full h-full flex items-center justify-center text-gray-400 text-xl">Select a menu item</div>} />
                 </Routes>
             </main>

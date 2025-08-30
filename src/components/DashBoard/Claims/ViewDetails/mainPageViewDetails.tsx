@@ -38,8 +38,8 @@ const MainPageViewDetails: React.FC<MainPageViewDetailsProps> = ({
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:px-30 lg:pt-10">
-            <div className="max-w-7xl mx-auto">
+        <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:pt-10">
+            <div className="max-w-[68rem] mx-auto">
                 {/* Page Header */}
                 <div className="mb-8">
                     <div className='flex flex-row gap-4 items-start justify-start'>
@@ -66,7 +66,7 @@ const MainPageViewDetails: React.FC<MainPageViewDetailsProps> = ({
                 </div>
 
                 {/* Main Content Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                     {/* Left Side - Claim Details & History */}
                     <div className="space-y-6">
                         <LeftSideCard

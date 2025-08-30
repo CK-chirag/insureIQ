@@ -30,7 +30,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6 w-full max-w-md">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6 w-full max-w-md mx-auto">
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-lg font-semibold text-gray-900">

@@ -1,28 +1,21 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 interface TopCardProps {
     isGroup?: boolean;
+    completionPercentage?: number;
+    isExpiringSoon?: boolean;
 }
 
-const TopCard: React.FC<TopCardProps> = ({ isGroup }) => {
-    const navigate = useNavigate();
+const TopCard: React.FC<TopCardProps> = ({
+    isGroup,
+    completionPercentage = 100,
+    isExpiringSoon = false
+}) => {
     return (
         <div className="bg-white rounded-xl shadow-sm px-8 py-6 flex flex-col gap-2 w-full" style={{ fontFamily: 'DM Sans, ui-sans-serif, system-ui, sans-serif' }}>
             <div className="flex items-start justify-between">
                 <div>
                     <div className="flex flex-row gap-4 items-start justify-start">
-                        <button
-                            type="button"
-                            className="p-2 rounded-lg hover:bg-gray-100 transition group flex items-center justify-center"
-                        >
-                            <img
-                                onClick={() => navigate("/dashboard")}
-                                className="w-[24px] h-[24px] mx-auto transition-transform duration-200 group-hover:scale-125"
-                                src="https://cdn-icons-png.flaticon.com/512/93/93634.png"
-                                alt="logout"
-                            />
-                        </button>
                         <div>
                             <h2 className="text-2xl font-bold text-gray-900 mb-1">
                                 Health Insurance
@@ -31,18 +24,29 @@ const TopCard: React.FC<TopCardProps> = ({ isGroup }) => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-row items-center justify-end gap-4">
-                    <span className="bg-green-100 text-green-700 text-xs font-semibold px-4 py-1 rounded-full h-fit mt-1">
-                        Active
-                    </span>
+                <div className="flex flex-row items-center justify-end gap-2 mt-2">
+                    {completionPercentage === 100 ? (
+                        <span className="bg-green-100 text-green-700 text-xs font-semibold px-4 py-1 rounded-full">
+                            Active
+                        </span>
+                    ) : (
+                        <span className="bg-red-100 text-red-700 text-xs font-semibold px-4 py-1 rounded-full">
+                            {100 - completionPercentage}% Incomplete
+                        </span>
+                    )}
+                    {isExpiringSoon && (
+                        <span className="bg-yellow-100 text-yellow-700 text-xs font-semibold px-4 py-1 rounded-full">
+                            Renew Now
+                        </span>
+                    )}
                     {isGroup && (
-                        <span className="bg-green-100 text-green-700 text-xs font-semibold px-4 py-1 rounded-full h-fit mt-1 hover:cursor-pointer hover:bg-blue-500 hover:text-white">
-                            Manage Group
+                        <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-4 py-1 rounded-full">
+                            Group
                         </span>
                     )}
                 </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-y-2 gap-x-8 mt-4">
+            <div className="grid grid-cols-2 gap-y-2 gap-x-8 mt-4">
                 <div>
                     <div className="text-xs text-gray-400 mb-1">Insurer</div>
                     <div className="font-semibold text-gray-700">SecureLife Health</div>
@@ -63,9 +67,23 @@ const TopCard: React.FC<TopCardProps> = ({ isGroup }) => {
                     <div className="text-xs text-gray-400 mb-1">Premium</div>
                     <div className="font-semibold text-gray-700">$300 / month</div>
                 </div>
-                <div>
-                    <div className="text-xs text-gray-400 mb-1">Renewal Date</div>
-                    <div className="font-semibold text-gray-700">Jan 1, 2024</div>
+                <div className="flex items-center justify-between">
+                    <div>
+                        <div className="text-xs text-gray-400 mb-1">Renewal Date</div>
+                        <div className="font-semibold text-gray-700">Jan 1, 2024</div>
+                    </div>
+                    <button
+                        type="button"
+                        className="p-2 px-6 rounded-3xl border-2 border-dotted border-[var(--color-custom-blue)] shadow-md flex items-center justify-center ml-2 transition-all duration-200 hover:scale-105 hover:shadow-lg hover:border-blue-700 group"
+                    >
+                        download pdf
+                        <img
+                            onClick={() => {/* your download or navigation logic */ }}
+                            className="w-[14px] h-[14px] ml-2 mx-auto transition-transform duration-200 group-hover:scale-125"
+                            src="https://cdn-icons-png.flaticon.com/128/5585/5585018.png"
+                            alt="logout"
+                        />
+                    </button>
                 </div>
             </div>
         </div>

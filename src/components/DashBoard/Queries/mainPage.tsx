@@ -5,7 +5,7 @@ import SubQueries from "./subQuery";
 const Queries: React.FC = () => {
 
     return (
-        <div className="w-full max-w-5xl mx-auto py-8 mb-5" style={{ fontFamily: 'DM Sans, ui-sans-serif, system-ui, sans-serif' }}>
+        <div className="w-full max-w-[68rem] mx-auto py-8 mb-5" style={{ fontFamily: 'DM Sans, ui-sans-serif, system-ui, sans-serif' }}>
             {/* Heading */}
             <div className="flex flex-col gap-0 items-centre justify-centre">
                 <h1 className="text-3xl font-bold text-gray-900 mb-2">Queries</h1>
