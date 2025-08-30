@@ -25,7 +25,6 @@ const policiesData: Policy[] = [
 
 const PolicyCalendar: React.FC = () => {
     const [search, setSearch] = useState("");
-    const [sortBy, setSortBy] = useState("expiryDate");
     const [filter, setFilter] = useState("All Types");
 
     // Filter + Sort
@@ -36,9 +35,7 @@ const PolicyCalendar: React.FC = () => {
         filteredPolicies = filteredPolicies.filter(p => p.type === filter);
     }
     filteredPolicies.sort((a, b) =>
-        sortBy === "expiryDate"
-            ? new Date(a.expiryDate).getTime() - new Date(b.expiryDate).getTime()
-            : a.name.localeCompare(b.name)
+        new Date(a.expiryDate).getTime() - new Date(b.expiryDate).getTime()
     );
 
     return (

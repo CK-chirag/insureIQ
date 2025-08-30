@@ -16,7 +16,6 @@ interface RightListProps {
 }
 
 const RightList: React.FC<RightListProps> = ({
-    totalMembers = 215,
     members = [
         { id: '1', name: 'Robert Fox', relationship: 'Spouse', dateAdded: 'Jan 1, 2024' },
         { id: '2', name: 'Emily Johnson', relationship: 'Daughter', dateAdded: 'Jan 1, 2024' },
