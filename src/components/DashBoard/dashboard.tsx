@@ -68,7 +68,10 @@ const Dashboard: React.FC = () => {
                                         <div className="w-6 h-6 flex items-center justify-center">
                                             {navIcons[index]}
                                         </div>
-                                        <span className="font-medium">{item.label}</span>
+                                        <span
+                                            className={`${active === index ? "font-bold" : "font-medium"
+                                                }`}
+                                        >{item.label}</span>
                                     </Link>
                                 </li>
                             ))}
