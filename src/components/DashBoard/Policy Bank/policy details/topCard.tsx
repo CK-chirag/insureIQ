@@ -30,9 +30,46 @@ const TopCard: React.FC<TopCardProps> = ({
                             Active
                         </span>
                     ) : (
-                        <span className="bg-red-100 text-red-700 text-xs font-semibold px-4 py-1 rounded-full">
-                            {100 - completionPercentage}% Incomplete
-                        </span>
+                        <div className="relative w-10 h-10 flex items-center justify-center">
+                            <svg width="64" height="64" viewBox="0 0 80 80">
+                                {Array.from({ length: 10 }).map((_, i) => {
+                                    const startAngle = 135 + i * 36; // segment + gap spacing
+                                    const endAngle = startAngle + 16; // smaller arc for block
+                                    const percentSegments = Math.round((completionPercentage / 100) * 10);
+                                    const isActive = i < percentSegments;
+
+                                    const polarToCartesian = (cx: number, cy: number, r: number, angle: number) => {
+                                        const rad = (angle - 90) * Math.PI / 180.0;
+                                        return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+                                    };
+
+                                    const r = 30;
+                                    const cx = 40, cy = 40;
+                                    const start = polarToCartesian(cx, cy, r, startAngle);
+                                    const end = polarToCartesian(cx, cy, r, endAngle);
+
+                                    const pathData = [
+                                        "M", start.x, start.y,
+                                        "A", r, r, 0, 0, 1, end.x, end.y
+                                    ].join(" ");
+
+                                    return (
+                                        <path
+                                            key={i}
+                                            d={pathData}
+                                            stroke={isActive ? "#3B82F6" : "#E5E7EB"}
+                                            strokeWidth="6"
+                                            fill="none"
+                                            strokeLinecap="square"
+                                        />
+                                    );
+                                })}
+                            </svg>
+
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <span className="text-[8px] font-bold text-gray-800">{completionPercentage}%</span>
+                            </div>
+                        </div>
                     )}
                     {isExpiringSoon && (
                         <span className="bg-yellow-100 text-yellow-700 text-xs font-semibold px-4 py-1 rounded-full">
@@ -74,12 +111,11 @@ const TopCard: React.FC<TopCardProps> = ({
                     </div>
                     <button
                         type="button"
-                        className="p-2 px-6 rounded-3xl border-2 border-dotted border-[var(--color-custom-blue)] shadow-md flex items-center justify-center ml-2 transition-all duration-200 hover:scale-105 hover:shadow-lg hover:border-blue-700 group"
+                        className="p-2 px-6 rounded-3xl border-1 border-[var(--color-custom-blue)] shadow-md flex items-center justify-center ml-2 transition-all duration-200 hover:scale-105 hover:shadow-lg hover:border-blue-700 group"
                     >
-                        download pdf
                         <img
                             onClick={() => {/* your download or navigation logic */ }}
-                            className="w-[14px] h-[14px] ml-2 mx-auto transition-transform duration-200 group-hover:scale-125"
+                            className="w-[14px] h-[14px] mx-auto transition-transform duration-200 group-hover:scale-125"
                             src="https://cdn-icons-png.flaticon.com/128/5585/5585018.png"
                             alt="logout"
                         />

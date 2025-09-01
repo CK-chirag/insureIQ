@@ -74,16 +74,15 @@ const PolicyDetails: React.FC = () => {
                 )}
             </div>
 
-            <TopCard 
-                isGroup={isGroup}
-                completionPercentage={completionPercentage}
-                isExpiringSoon={isExpiringSoon}
-            />
-
             {/* Bottom Section - Two Cards Side by Side */}
-            <div className="flex flex-col lg:flex-row gap-6">
-                {/* Left Side Card */}
-                <div className="w-full lg:w-1/2">
+            <div className="flex flex-col lg:flex-row gap-6 mb-6">
+                {/* Left Side: TopCard above LeftSideCard */}
+                <div className="w-full lg:w-1/2 flex flex-col gap-4">
+                    <TopCard 
+                        isGroup={isGroup}
+                        completionPercentage={completionPercentage}
+                        isExpiringSoon={isExpiringSoon}
+                    />
                     <LeftSideCard />
                 </div>
 

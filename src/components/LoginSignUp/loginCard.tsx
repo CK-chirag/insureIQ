@@ -1,57 +1,103 @@
-
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import { FaApple, FaMicrosoft } from "react-icons/fa";
 import Button from "../commonComp/Button";
+import { useNavigate } from "react-router";
 
-type LoginCardProps = {
-	setIsSignUp: (value: boolean) => void;
-};
+interface LoginCardProps {
+	setIsSignUp: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const LoginCard: React.FC<LoginCardProps> = ({ setIsSignUp }) => {
 	const navigate = useNavigate();
 
-	const handlenavigation = () => {
-		navigate('/dashboard')
-	}
+    const handlenavigation = () => {
+        navigate("/dashboard");
+    };
 
 	return (
-		<div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 w-full max-w-sm mx-auto flex flex-col gap-6 border border-gray-200">
-			<h2 className="text-center text-lg font-semibold mb-2">Login Into Your Account</h2>
-			<form className="flex flex-col gap-4">
+		<div className="w-full max-w-md rounded-2xl bg-white shadow-lg p-8">
+			{/* Header */}
+			<div className="text-center">
+				<h1 className="text-xl font-bold text-gray-800 py-2">
+					Welcome back at <span className="text-[var(--color-custom-blue)]">InsureVault</span> 👋
+				</h1>
+			</div>
+
+			{/* Form */}
+			<div className="mt-6 space-y-6">
+				{/* Email */}
 				<div>
-					<label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email address*</label>
+					<label className="block text-sm font-medium text-gray-700">
+						Email
+					</label>
 					<input
 						type="email"
-						id="email"
-						className="w-full px-4 py-2 rounded-lg border border-gray-400 focus:outline-none focus:ring-2"
-						style={{ '--tw-ring-color': 'var(--color-custom-blue)' } as React.CSSProperties }
-						placeholder="Email address"
-						required
+						placeholder="you@example.com"
+						className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-[var(--color-custom-blue)] focus:ring-[var(--color-custom-blue)] focus:outline-none"
 					/>
 				</div>
+
+				{/* Password */}
 				<div>
-					<label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Enter password</label>
+					<label className="block text-sm font-medium text-gray-700">
+						Password
+					</label>
 					<input
 						type="password"
-						id="password"
-						className="w-full px-4 py-2 rounded-lg border border-gray-400 focus:outline-none focus:ring-2"
-						style={{ '--tw-ring-color': 'var(--color-custom-blue)' } as React.CSSProperties }
-						placeholder="Enter password"
-						required
+						placeholder="••••••••"
+						className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-[var(--color-custom-blue)] focus:ring-[var(--color-custom-blue)] focus:outline-none"
 					/>
+					<div className="mt-1 text-right">
+						<a
+							href="#"
+							className="text-sm text-[var(--color-custom-blue)] hover:underline"
+						>
+							Forgot password?
+						</a>
+					</div>
 				</div>
-				<div className="text-right mb-2">
-					<Link to="/forgot-password" className="text-xs underline" style={{ color: 'var(--color-custom-blue)' }}>forgot password</Link>
+
+				{/* Login button */}
+				<Button
+                        type="submit"
+                        onClick={handlenavigation}
+                        className="w-full py-2 sm:py-3 text-sm sm:text-base"
+                        text="Login"
+                    />
+
+				{/* Divider */}
+				<div className="flex items-center gap-2">
+					<hr className="flex-1 border-gray-300" />
+					<span className="text-xs text-gray-400">or sign in with</span>
+					<hr className="flex-1 border-gray-300" />
 				</div>
-				<Button type="submit" text="Continue" onClick={handlenavigation} />
-			</form>
-			<button
-				className="w-full mt-2 hover:underline text-sm"
-				type="button"
-				onClick={() => setIsSignUp(true)}
-			>
-				Don't have an account? Sign up
-			</button>
+
+				{/* Social logins */}
+				<div className="grid grid-cols-3 gap-3">
+					<button className="flex items-center justify-center rounded-lg border border-gray-300 p-2 hover:bg-gray-100">
+						<FcGoogle className="text-xl" />
+					</button>
+					<button className="flex items-center justify-center rounded-lg border border-gray-300 p-2 hover:bg-gray-100">
+						<FaMicrosoft className="text-blue-600 text-xl" />
+					</button>
+					<button className="flex items-center justify-center rounded-lg border border-gray-300 p-2 hover:bg-gray-100">
+						<FaApple className="text-black text-xl" />
+					</button>
+				</div>
+
+				{/* Signup */}
+				<p className="text-center text-sm text-gray-500">
+					Don’t have an account?{" "}
+					<button
+						type="button"
+						onClick={() => setIsSignUp(true)}
+						className="text-[var(--color-custom-blue)] hover:underline"
+					>
+						Sign up
+					</button>
+				</p>
+			</div>
 		</div>
 	);
 };

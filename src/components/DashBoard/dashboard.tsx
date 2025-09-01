@@ -41,14 +41,17 @@ const Dashboard: React.FC = () => {
             <aside className="w-72 bg-white border-r border-white flex flex-col justify-between py-6 px-4 rounded-tl-2xl rounded-bl-2xl h-screen fixed left-0 top-0">
                 {/* Top: Profile */}
                 <div>
-                    <div className="flex items-center justify-between mb-8">
-                        <div className="flex items-center gap-3">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="profile" className="w-10 h-10 rounded-full object-cover" />
-                            <span className="font-semibold text-gray-800">Sophia Carter</span>
+                    <div className="flex items-center px-4 pt-2 pb-6 gap-3">
+                        <div className="bg-[var(--color-custom-blue)] rounded-full w-8 h-8 flex items-center justify-center">
+                            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="white">
+                                <circle cx="12" cy="12" r="10" strokeWidth="2" />
+                                <path d="M8 12h8M12 8v8" strokeWidth="2" />
+                            </svg>
                         </div>
-                        <button type="button" className="p-2 rounded-lg hover:bg-gray-100 transition group flex items-center justify-center">
-                            <img onClick={handlenavigation} className="w-[24px] h-[24px] mx-auto transition-transform duration-200 group-hover:scale-125" src={logout} alt="logout" />
-                        </button>
+                        <div>
+                            <div className="font-bold text-lg text-gray-900">InsureVault</div>
+                            <div className="text-xs text-gray-400">Hub</div>
+                        </div>
                     </div>
                     {/* Menu */}
                     <nav>
@@ -73,8 +76,30 @@ const Dashboard: React.FC = () => {
                         </ul>
                     </nav>
                 </div>
+
                 {/* Bottom: Genie Card */}
                 <div className="mt-8">
+                    <button
+                        onClick={handlenavigation}
+                        className="w-full mb-12 flex items-center gap-4 px-4 py-3 rounded-lg text-black text-left hover:bg-gray-100 hover:cursor-pointer group"
+                    >
+                        <svg
+                            width="20px"
+                            height="20px"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="fill-black"
+                        >
+                            <g>
+                                <path
+                                    fillRule="evenodd"
+                                    d="M6 2a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3H6zm10.293 5.293a1 1 0 0 1 1.414 0l4 4a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414-1.414L18.586 13H10a1 1 0 1 1 0-2h8.586l-2.293-2.293a1 1 0 0 1 0-1.414z"
+                                    clipRule="evenodd"
+                                />
+                            </g>
+                        </svg>
+                        Logout
+                    </button>
                     <div className="relative mb-3">
                         <div className="absolute -top-6 left-4 bg-[var(--color-custom-blue)] rounded-full w-12 h-12 flex items-center justify-center shadow-lg">
                             <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="white"><circle cx="12" cy="12" r="10" strokeWidth="2" /><path d="M8 12h8M12 8v8" strokeWidth="2" /></svg>
@@ -92,16 +117,10 @@ const Dashboard: React.FC = () => {
             <main className="flex-1 ml-72 overflow-y-auto min-h-screen">
                 {/* Top Bar */}
                 <div className="flex items-center justify-between bg-white px-16 pt-6 pb-4 mb-2" style={{ boxShadow: '0 4px 12px -4px rgba(0,0,0,0.10)' }}>
-                    <div className="flex items-center gap-3">
-                        <div className="bg-[var(--color-custom-blue)] rounded-full w-8 h-8 flex items-center justify-center">
-                            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="white">
-                                <circle cx="12" cy="12" r="10" strokeWidth="2" />
-                                <path d="M8 12h8M12 8v8" strokeWidth="2" />
-                            </svg>
-                        </div>
-                        <div>
-                            <div className="font-bold text-lg text-gray-900">InsureVault</div>
-                            <div className="text-xs text-gray-400">Hub</div>
+                    <div className="flex items-center justify-between mb-0">
+                        <div className="flex items-center gap-3">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="profile" className="w-8 h-8 rounded-full object-cover" />
+                            <span className="font-semibold text-gray-800">Sophia Carter</span>
                         </div>
                     </div>
                     <button className="flex items-center gap-2 bg-[var(--color-custom-blue)] text-white rounded-3xl px-4 py-2 font-normal text-sm shadow-none hover:bg-blue-700 transition">

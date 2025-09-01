@@ -4,10 +4,12 @@ import Button from "../../../commonComp/Button";
 const LeftSideCard: React.FC = () => {
     return (
         <div
-            className="bg-white rounded-xl shadow-sm px-6 py-6 w-full max-w-lg min-h-[600px] flex flex-col justify-between md:max-w-[550px] sm:max-w-full sm:min-h-full sm:px-8 sm:py-8"
-            style={{ fontFamily: 'DM Sans, ui-sans-serif, system-ui, sans-serif' }}
+            className="bg-white rounded-xl shadow-sm px-6 py-6 w-full max-w-lg flex flex-col justify-between md:max-w-[550px] sm:max-w-full sm:px-8 sm:py-8"
+            style={{
+                fontFamily: 'DM Sans, ui-sans-serif, system-ui, sans-serif',
+                minHeight: '420px', // Desktop min height
+            }}
         >
-
             <div>
                 <h2 className="text-xl font-bold text-gray-900 mb-4">Policy Features</h2>
                 <div className="mb-6">

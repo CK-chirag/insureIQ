@@ -26,10 +26,14 @@ const PolicyCard: React.FC<PolicyCardProps> = ({
 }) => {
     const navigate = useNavigate();
 
-    // Circle values
-    const radius = 14;
-    const circumference = 2 * Math.PI * radius;
-    const strokeDashoffset = circumference - (completionPercentage / 100) * circumference;
+    // Helper for arc drawing
+    const polarToCartesian = (cx: number, cy: number, r: number, angle: number) => {
+        const rad = (angle - 90) * Math.PI / 180.0;
+        return {
+            x: cx + r * Math.cos(rad),
+            y: cy + r * Math.sin(rad)
+        };
+    };
 
     return (
         <div
@@ -99,59 +103,49 @@ const PolicyCard: React.FC<PolicyCardProps> = ({
             {/* Card Content */}
             <div className="p-6 flex flex-col flex-1">
                 {/* Header Section with Title + Completion Circle */}
-                <div className="flex items-start justify-between mb-2">
-                    <div className="flex-1">
-                        <div className="font-bold text-lg text-gray-900">
-                            {isGroup ? `Group ${policyType}` : policyType}
-                        </div>
+                <div className="flex items-center justify-between mb-2 gap-2">
+                    <div className="font-bold text-lg text-gray-900 flex-1">
+                        {isGroup ? `Group ${policyType}` : policyType}
                     </div>
+                    {/* Completion Circle (compact, in line) */}
+                    <div className="relative w-10 h-10 flex items-center justify-center">
+                        <svg width="64" height="64" viewBox="0 0 80 80">
+                            {Array.from({ length: 10 }).map((_, i) => {
+                                const startAngle = 135 + i * 36; // segment + gap spacing
+                                const endAngle = startAngle + 16; // smaller arc for block
+                                const percentSegments = Math.round((completionPercentage / 100) * 10);
+                                const isActive = i < percentSegments;
 
-                    {/* Completion Circle */}
-                    <div className="relative w-12 h-12 flex items-center justify-center">
-                        <svg
-                            className="w-10 h-10 transform -rotate-90"
-                            viewBox="0 0 32 32"
-                            style={{ display: 'block' }}
-                        >
-                            {/* Gradient */}
-                            <defs>
-                                <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stopColor="#3B82F6" />
-                                    <stop offset="50%" stopColor="#8B5CF6" />
-                                    <stop offset="100%" stopColor="#EF4444" />
-                                </linearGradient>
-                            </defs>
+                                const polarToCartesian = (cx: number, cy: number, r: number, angle: number) => {
+                                    const rad = (angle - 90) * Math.PI / 180.0;
+                                    return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+                                };
 
-                            {/* Background Circle */}
-                            <circle
-                                cx="16"
-                                cy="16"
-                                r="14"
-                                fill="none"
-                                stroke="#E5E7EB"
-                                strokeWidth="2"
-                            />
+                                const r = 30;
+                                const cx = 40, cy = 40;
+                                const start = polarToCartesian(cx, cy, r, startAngle);
+                                const end = polarToCartesian(cx, cy, r, endAngle);
 
-                            {/* Progress Circle */}
-                            <circle
-                                cx="16"
-                                cy="16"
-                                r="14"
-                                fill="none"
-                                stroke="url(#progressGradient)"
-                                strokeWidth="2.5"
-                                strokeDasharray={circumference}
-                                strokeDashoffset={strokeDashoffset}
-                                strokeLinecap="round"
-                                className="transition-all duration-500 ease-in-out"
-                            />
+                                const pathData = [
+                                    "M", start.x, start.y,
+                                    "A", r, r, 0, 0, 1, end.x, end.y
+                                ].join(" ");
+
+                                return (
+                                    <path
+                                        key={i}
+                                        d={pathData}
+                                        stroke={isActive ? "#3B82F6" : "#E5E7EB"}
+                                        strokeWidth="6"
+                                        fill="none"
+                                        strokeLinecap="square"
+                                    />
+                                );
+                            })}
                         </svg>
 
-                        {/* Percentage Text */}
                         <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-[10px] font-bold text-gray-700">
-                                {completionPercentage}%
-                            </span>
+                            <span className="text-[8px] font-bold text-gray-800">{completionPercentage}%</span>
                         </div>
                     </div>
                 </div>
@@ -176,7 +170,7 @@ const PolicyCard: React.FC<PolicyCardProps> = ({
                     >
                         <img
                             onClick={() => navigate("/dashboard")}
-                            className="w-[14px] h-[14px] mx-auto transition-transform duration-200 group-hover:scale-125"
+                            className="w-[18px] h-[18px] mx-auto transition-transform duration-200 group-hover:scale-125"
                             src="https://cdn-icons-png.flaticon.com/128/5585/5585018.png"
                             alt="logout"
                         />
