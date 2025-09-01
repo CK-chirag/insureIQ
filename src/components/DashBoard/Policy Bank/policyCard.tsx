@@ -26,15 +26,6 @@ const PolicyCard: React.FC<PolicyCardProps> = ({
 }) => {
     const navigate = useNavigate();
 
-    // Helper for arc drawing
-    const polarToCartesian = (cx: number, cy: number, r: number, angle: number) => {
-        const rad = (angle - 90) * Math.PI / 180.0;
-        return {
-            x: cx + r * Math.cos(rad),
-            y: cy + r * Math.sin(rad)
-        };
-    };
-
     return (
         <div
             className="relative z-0 h-fit bg-white rounded-xl transition-all duration-200 cursor-pointer hover:scale-[1.02] hover:border-2 hover:border-[var(--color-custom-blue)] flex flex-col"

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate, Routes, Route, Link } from "react-router-dom";
 import PolicyBank from "./Policy Bank/policybank";
 import PolicyDetails from "./Policy Bank/policy details/policyDetails";
-import logout from '../../assets/logout-svgrepo-com.png';
 import MainPageViewDetails from "./Claims/ViewDetails/mainPageViewDetails";
 import Claims from "./Claims/mainPageClaim";
 import Queries from "./Queries/mainPage";
