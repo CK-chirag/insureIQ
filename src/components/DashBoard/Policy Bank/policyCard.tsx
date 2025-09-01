@@ -157,13 +157,12 @@ const PolicyCard: React.FC<PolicyCardProps> = ({
                     </p>
                     <button
                         type="button"
-                        className="p-2 rounded-lg hover:bg-gray-100 transition group flex items-center justify-center"
+                        className="p-2 rounded-lg hover:bg-gray-100 transition group flex items-center justify-center hover:cursor-pointer"
                     >
                         <img
-                            onClick={() => navigate("/dashboard")}
                             className="w-[18px] h-[18px] mx-auto transition-transform duration-200 group-hover:scale-125"
                             src="https://cdn-icons-png.flaticon.com/128/5585/5585018.png"
-                            alt="logout"
+                            alt="download"
                         />
                     </button>
                 </div>
