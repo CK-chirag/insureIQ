@@ -72,6 +72,8 @@ const PolicyBank: React.FC = () => {
         // Add your renewal logic here
     };
 
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+
     return (
         <div className="w-full max-w-[68rem] mx-auto py-8 mb-5" style={{ fontFamily: 'DM Sans, ui-sans-serif, system-ui, sans-serif' }}>
             {/* Heading */}
@@ -98,24 +100,42 @@ const PolicyBank: React.FC = () => {
                 <div className="flex gap-2 py-6">
                     {activeTab === 'policies' && (
                         <div className="flex items-center space-x-2">
-                            <label className="text-sm font-medium text-gray-700">Filter by:</label>
-                            <select
-                                value={filter}
-                                onChange={(e) => setFilter(e.target.value)}
-                                className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                            >
-                                <option value="All Types">All Types</option>
-                                <option value="Home">Home</option>
-                                <option value="Auto">Auto</option>
-                                <option value="Health">Health</option>
-                                <option value="Life">Life</option>
-                                <option value="Travel">Travel</option>
-                                <option value="Pet">Pet</option>
-                                <option value="Business">Business</option>
-                                <option value="Rental">Rental</option>
-                                <option value="Motorcycle">Motorcycle</option>
-                                <option value="Boat">Boat</option>
-                            </select>
+                            <div className="flex items-center space-x-2 relative">
+                                <label className="text-sm font-medium text-gray-700">Filter by:</label>
+                                <div className="relative w-44">
+                                    <button
+                                        type="button"
+                                        onClick={() => setDropdownOpen(!dropdownOpen)}
+                                        className="w-full flex justify-between items-center bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:border-blue-500 focus:ring-2 focus:ring-blue-500 transition"
+                                    >
+                                        {filter || "All Types"}
+                                        <svg className="ml-2 h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+
+                                    {dropdownOpen && (
+                                        <div className="absolute mt-2 w-full bg-white rounded-xl shadow-lg border border-gray-200 z-10">
+                                            <ul className="py-2 max-h-60 overflow-auto">
+                                                {["All Types", "Home", "Auto", "Health", "Life", "Travel", "Pet", "Business", "Rental", "Motorcycle", "Boat"].map((type) => (
+                                                    <li key={type}>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                setFilter(type);
+                                                                setDropdownOpen(false);
+                                                            }}
+                                                            className="w-full text-left px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                                                        >
+                                                            {type}
+                                                        </button>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     )}
                     {activeTab === 'calendar' && (

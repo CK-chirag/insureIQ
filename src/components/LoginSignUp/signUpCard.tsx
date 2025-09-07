@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import Button from "../commonComp/Button";
 
@@ -6,17 +6,80 @@ type SignUpCardProps = {
     setIsSignUp: (value: boolean) => void;
 };
 
+function generateCaptcha() {
+    // Simple random 5-character alphanumeric captcha
+    return Math.random().toString(36).substring(2, 7).toUpperCase();
+}
+
 const SignUpCard: React.FC<SignUpCardProps> = ({ setIsSignUp }) => {
     const navigate = useNavigate();
 
-    const handlenavigation = () => {
+    // State for form fields
+    const [form, setForm] = useState({
+        fullname: "",
+        mobile: "",
+        countryCode: "+91",
+        pan: "",
+        aadhaar: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        captcha: "",
+        terms: false,
+    });
+    const [error, setError] = useState("");
+    const [captcha, setCaptcha] = useState(generateCaptcha());
+
+    // Basic validation functions
+    const validateEmail = (email: string) =>
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    const validateAadhaar = (aadhaar: string) =>
+        /^\d{12}$/.test(aadhaar);
+
+    const validateMobile = (mobile: string) =>
+        /^\d{10}$/.test(mobile);
+
+    const validatePAN = (pan: string) =>
+        pan === "" || /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pan);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const target = e.target as HTMLInputElement | HTMLSelectElement;
+        const { name, value, type } = target;
+        setForm(prev => ({
+            ...prev,
+            [name]: type === "checkbox" ? (target as HTMLInputElement).checked : value.replace(/[<>"']/g, ""), // basic XSS prevention
+        }));
+    };
+
+    const handleRefreshCaptcha = () => {
+        setCaptcha(generateCaptcha());
+        setForm(prev => ({ ...prev, captcha: "" }));
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setError("");
+
+        // Frontend validation
+        if (!form.fullname.trim()) return setError("Full name is required.");
+        if (!validateMobile(form.mobile)) return setError("Enter a valid 10-digit mobile number.");
+        if (!validateAadhaar(form.aadhaar)) return setError("Enter a valid 12-digit Aadhaar number.");
+        if (!validateEmail(form.email)) return setError("Enter a valid email address.");
+        if (!validatePAN(form.pan)) return setError("Enter a valid PAN number.");
+        if (form.password.length < 6) return setError("Password must be at least 6 characters.");
+        if (form.password !== form.confirmPassword) return setError("Passwords do not match.");
+        if (!form.captcha.trim()) return setError("Captcha is required.");
+        if (form.captcha.toUpperCase() !== captcha) return setError("Captcha does not match.");
+        if (!form.terms) return setError("You must accept the Terms & Conditions.");
+
+        // Send to backend (always use HTTPS, backend must prevent SQLi, CSRF, CORS)
+        // Example: fetch("/api/signup", { ... })
         navigate("/dashboard");
     };
 
     return (
-        <div className="w-full max-w-xl rounded-2xl bg-white shadow-lg border border-gray-200 p-6 sm:p-8 
-                      flex flex-col max-h-[90vh]">
-
+        <div className="w-full max-w-xl rounded-2xl bg-white shadow-lg border border-gray-200 p-6 sm:p-8 flex flex-col max-h-[90vh]">
             {/* Scrollable content */}
             <div className="flex-1 pr-2">
                 {/* Header */}
@@ -26,7 +89,7 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setIsSignUp }) => {
                     </h1>
                 </div>
 
-                <form className="flex flex-col gap-4 sm:gap-6">
+                <form className="flex flex-col gap-4 sm:gap-6" onSubmit={handleSubmit} autoComplete="off">
                     {/* Full Name + Mobile */}
                     <div className="flex flex-col sm:flex-row gap-3">
                         <div className="w-full sm:flex-1">
@@ -36,9 +99,12 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setIsSignUp }) => {
                             <input
                                 type="text"
                                 id="fullname"
+                                name="fullname"
                                 className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2"
                                 style={{ "--tw-ring-color": "var(--color-custom-blue)" } as React.CSSProperties}
                                 placeholder="Enter your full name"
+                                value={form.fullname}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
@@ -52,7 +118,8 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setIsSignUp }) => {
                                     id="countryCode"
                                     name="countryCode"
                                     className="px-3 py-2 bg-gray-50 text-gray-700 border-r border-gray-300 text-sm focus:outline-none"
-                                    defaultValue="+91"
+                                    value={form.countryCode}
+                                    onChange={handleChange}
                                 >
                                     <option value="+91">+91</option>
                                     <option value="+1">+1</option>
@@ -63,15 +130,18 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setIsSignUp }) => {
                                 <input
                                     type="tel"
                                     id="mobile"
+                                    name="mobile"
                                     placeholder="10-digit number"
                                     className="flex-1 px-3 py-2 text-sm text-gray-700 focus:outline-none"
+                                    value={form.mobile}
+                                    onChange={handleChange}
                                     required
                                 />
                             </div>
                         </div>
                     </div>
 
-                    {/* PAN + Email */}
+                    {/* PAN + Aadhaar + Email */}
                     <div className="flex flex-col sm:flex-row gap-3">
                         <div className="w-full sm:flex-1">
                             <label htmlFor="pan" className="block text-sm font-medium text-gray-700 mb-1">
@@ -80,14 +150,15 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setIsSignUp }) => {
                             <input
                                 type="text"
                                 id="pan"
+                                name="pan"
                                 className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2"
                                 style={{ "--tw-ring-color": "var(--color-custom-blue)" } as React.CSSProperties}
                                 placeholder="Enter PAN (optional)"
+                                value={form.pan}
+                                onChange={handleChange}
                             />
                         </div>
 
-
-                        {/* Aadhaar */}
                         <div>
                             <label htmlFor="aadhaar" className="block text-sm font-medium text-gray-700 mb-1">
                                 Aadhaar Number *
@@ -95,9 +166,12 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setIsSignUp }) => {
                             <input
                                 type="text"
                                 id="aadhaar"
+                                name="aadhaar"
                                 className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2"
                                 style={{ "--tw-ring-color": "var(--color-custom-blue)" } as React.CSSProperties}
                                 placeholder="Enter 12-digit Aadhaar number"
+                                value={form.aadhaar}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
@@ -108,9 +182,12 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setIsSignUp }) => {
                             <input
                                 type="email"
                                 id="email"
+                                name="email"
                                 className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2"
                                 style={{ "--tw-ring-color": "var(--color-custom-blue)" } as React.CSSProperties}
                                 placeholder="Enter email address"
+                                value={form.email}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
@@ -125,9 +202,12 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setIsSignUp }) => {
                             <input
                                 type="password"
                                 id="password"
+                                name="password"
                                 className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2"
                                 style={{ "--tw-ring-color": "var(--color-custom-blue)" } as React.CSSProperties}
                                 placeholder="Create strong password"
+                                value={form.password}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
@@ -139,9 +219,12 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setIsSignUp }) => {
                             <input
                                 type="password"
                                 id="confirmPassword"
+                                name="confirmPassword"
                                 className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2"
                                 style={{ "--tw-ring-color": "var(--color-custom-blue)" } as React.CSSProperties}
                                 placeholder="Confirm password"
+                                value={form.confirmPassword}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
@@ -156,17 +239,20 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setIsSignUp }) => {
                             <input
                                 type="text"
                                 id="captcha"
+                                name="captcha"
                                 className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2"
                                 style={{ "--tw-ring-color": "var(--color-custom-blue)" } as React.CSSProperties}
                                 placeholder="Enter captcha"
+                                value={form.captcha}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="bg-gray-100 border border-gray-400 rounded-lg px-4 py-2 font-mono text-md">
-                                Q9T04
+                            <div className="bg-gray-100 border border-gray-400 rounded-lg px-4 py-2 font-mono text-md select-none">
+                                {captcha}
                             </div>
-                            <button type="button" className="text-gray-500 text-sm underline p-1">
+                            <button type="button" className="text-gray-500 text-sm underline p-1" onClick={handleRefreshCaptcha} title="Refresh captcha">
                                 &#8635;
                             </button>
                         </div>
@@ -174,17 +260,29 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setIsSignUp }) => {
 
                     {/* Terms */}
                     <div className="flex items-start gap-2">
-                        <input type="checkbox" id="terms" className="mt-1" required />
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            name="terms"
+                            className="mt-1"
+                            checked={form.terms}
+                            onChange={handleChange}
+                            required
+                        />
                         <label htmlFor="terms" className="text-xs sm:text-sm text-gray-700">
                             I accept the <span className="underline">Terms & Conditions</span> and{" "}
                             <span className="underline">Privacy Policy</span>
                         </label>
                     </div>
 
+                    {/* Error message */}
+                    {error && (
+                        <div className="text-red-500 text-sm">{error}</div>
+                    )}
+
                     {/* Submit */}
                     <Button
                         type="submit"
-                        onClick={handlenavigation}
                         className="w-full py-2 sm:py-3 text-sm sm:text-base"
                         text="Create your account"
                     />
