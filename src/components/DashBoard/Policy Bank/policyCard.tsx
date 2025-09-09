@@ -96,7 +96,7 @@ const PolicyCard: React.FC<PolicyCardProps> = ({
                 {/* Header Section with Title + Completion Circle */}
                 <div className="flex items-center justify-between mb-2 gap-2">
                     <div className="font-bold text-lg text-gray-900 flex-1">
-                        {isGroup ? `Group ${policyType}` : policyType}
+                        {isGroup ? `${policyType}` : policyType}
                     </div>
                     {/* Completion Circle (compact, in line) */}
                     <div className="relative w-10 h-10 flex items-center justify-center">

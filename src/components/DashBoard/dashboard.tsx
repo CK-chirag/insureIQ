@@ -5,6 +5,7 @@ import PolicyDetails from "./Policy Bank/policy details/policyDetails";
 import MainPageViewDetails from "./Claims/ViewDetails/mainPageViewDetails";
 import Claims from "./Claims/mainPageClaim";
 import Queries from "./Queries/mainPage";
+import { savePolicyToStorage, createPolicyFromFile } from "../../utils/policyStorage";
 
 const policyTypes = [
     "Health Insurance",
@@ -64,9 +65,9 @@ const Dashboard: React.FC = () => {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        // Limit: 10MB
-        if (file.size > 10 * 1024 * 1024) {
-            alert("File size exceeds 10MB limit.");
+        // Limit: 50MB
+        if (file.size > 50 * 1024 * 1024) {
+            alert("File size exceeds 50MB limit.");
             return;
         }
 
@@ -92,9 +93,22 @@ const Dashboard: React.FC = () => {
     const handleUpload = (e: React.FormEvent) => {
         e.preventDefault();
         if (selectedType && pdfFile) {
-            // TODO: Send to backend or update state
-            alert(`Policy of type "${selectedType}" uploaded!`);
-            handleModalClose();
+            try {
+                // Create policy data from uploaded file
+                const policyData = createPolicyFromFile(pdfFile, selectedType);
+                
+                // Save to localStorage
+                savePolicyToStorage(policyData);
+                
+                // Dispatch custom event to notify other components
+                window.dispatchEvent(new CustomEvent('policyUploaded'));
+                
+                alert(`Policy of type "${selectedType}" uploaded successfully!`);
+                handleModalClose();
+            } catch (error) {
+                console.error('Error uploading policy:', error);
+                alert('Error uploading policy. Please try again.');
+            }
         }
     };
 
@@ -151,35 +165,30 @@ const Dashboard: React.FC = () => {
 
                 {/* Bottom: Genie Card */}
                 <div className="mt-8">
-                    <button
-                        onClick={handlenavigation}
-                        className="w-full mb-12 flex items-center gap-4 px-4 py-3 rounded-lg text-black text-left hover:bg-gray-100 hover:cursor-pointer group"
-                    >
-                        <svg
-                            width="20px"
-                            height="20px"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="fill-black"
-                        >
-                            <g>
-                                <path
-                                    fillRule="evenodd"
-                                    d="M6 2a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3H6zm10.293 5.293a1 1 0 0 1 1.414 0l4 4a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414-1.414L18.586 13H10a1 1 0 1 1 0-2h8.586l-2.293-2.293a1 1 0 0 1 0-1.414z"
-                                    clipRule="evenodd"
-                                />
-                            </g>
-                        </svg>
-                        Logout
-                    </button>
                     <div className="relative mb-3">
                         <div className="absolute -top-6 left-4 bg-[var(--color-custom-blue)] rounded-full w-12 h-12 flex items-center justify-center shadow-lg">
-                            <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="white"><circle cx="12" cy="12" r="10" strokeWidth="2" /><path d="M8 12h8M12 8v8" strokeWidth="2" /></svg>
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="profile" className="w-10 h-10 rounded-full object-cover" />
                         </div>
                         <div className="bg-blue-50 rounded-xl pt-8 pb-4 px-4 flex flex-col items-start">
-                            <span className="font-semibold text-[var(--color-custom-blue)] mb-1">Policy Genie</span>
-                            <span className="text-xs text-gray-500 mb-3">Get detailed analysis across all your policies.</span>
-                            <button className="bg-[var(--color-custom-blue)] text-white rounded-lg px-4 py-2 font-semibold text-sm shadow hover:bg-blue-700 transition">Ask Genie</button>
+                            <span className="font-semibold text-[var(--color-custom-blue)] mb-4">Sophia Carter</span>
+                            <button onClick={handlenavigation} className="flex flex-row gap-2 items-center justify-center w-full bg-[var(--color-custom-blue)] text-white rounded-lg px-4 py-3 font-semibold text-sm shadow hover:bg-blue-700 hover:cursor-pointer hover:shadow-[var(--color-custom-blue)] transition">
+                                <svg
+                                    width="20px"
+                                    height="20px"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="fill-white"
+                                >
+                                    <g>
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M6 2a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3H6zm10.293 5.293a1 1 0 0 1 1.414 0l4 4a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414-1.414L18.586 13H10a1 1 0 1 1 0-2h8.586l-2.293-2.293a1 1 0 0 1 0-1.414z"
+                                            clipRule="evenodd"
+                                        />
+                                    </g>
+                                </svg>
+                                <span>Logout</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -188,13 +197,7 @@ const Dashboard: React.FC = () => {
             {/* Main Content */}
             <main className="flex-1 ml-72 overflow-y-auto min-h-screen">
                 {/* Top Bar */}
-                <div className="flex items-center justify-between bg-white px-16 pt-6 pb-4 mb-2" style={{ boxShadow: '0 4px 12px -4px rgba(0,0,0,0.10)' }}>
-                    <div className="flex items-center justify-between mb-0">
-                        <div className="flex items-center gap-3">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="profile" className="w-8 h-8 rounded-full object-cover" />
-                            <span className="font-semibold text-gray-800">Sophia Carter</span>
-                        </div>
-                    </div>
+                <div className="flex items-center justify-end bg-white px-16 pt-6 pb-4 mb-2" style={{ boxShadow: '0 4px 12px -4px rgba(0,0,0,0.10)' }}>
                     <button
                         className="flex items-center gap-2 bg-[var(--color-custom-blue)] text-white rounded-3xl px-4 py-2 font-normal text-sm shadow-md hover:shadow-lg hover:scale-[1.02] hover:cursor-pointer hover:bg-blue-700 transition-all duration-200"
                         onClick={handleUploadClick}
@@ -301,7 +304,7 @@ const Dashboard: React.FC = () => {
                                                 <span className="font-medium text-gray-700">
                                                     Click to upload or drag & drop
                                                 </span>
-                                                <span className="text-sm text-gray-500">PDF only (Max 10MB)</span>
+                                                <span className="text-sm text-gray-500">PDF only (Max 50MB)</span>
 
                                                 <input
                                                     id="policy-pdf"

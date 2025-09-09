@@ -1,73 +1,107 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PolicyCard from "./policyCard";
 import PolicyCalendar from "./policyCalender";
+import { getPoliciesFromStorage, type PolicyData } from "../../../utils/policyStorage";
 
 const PolicyBank: React.FC = () => {
     const [filter, setFilter] = useState("All Types");
     const [activeTab, setActiveTab] = useState<'policies' | 'calendar'>('policies');
+    const [policyData, setPolicyData] = useState<PolicyData[]>([]);
 
-    // Sample policy data with all necessary information
-    const policyData = [
+    // Load policies from localStorage on component mount and when storage changes
+    useEffect(() => {
+        const storedPolicies = getPoliciesFromStorage();
+        setPolicyData(storedPolicies);
+    }, []);
+
+    // Listen for storage changes and custom events to update when new policies are uploaded
+    useEffect(() => {
+        const handleStorageChange = () => {
+            const storedPolicies = getPoliciesFromStorage();
+            setPolicyData(storedPolicies);
+        };
+
+        const handlePolicyUploaded = () => {
+            const storedPolicies = getPoliciesFromStorage();
+            setPolicyData(storedPolicies);
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        window.addEventListener('policyUploaded', handlePolicyUploaded);
+        
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            window.removeEventListener('policyUploaded', handlePolicyUploaded);
+        };
+    }, []);
+
+    // Sample policy data for demonstration (will be merged with uploaded policies)
+    const samplePolicyData = [
         {
-            id: 1,
-            isExpiringSoon: true,
-            daysUntilExpiry: 15,
-            isGroup: false,
-            completionPercentage: 85,
+            id: "sample-1",
             policyType: "Health Insurance",
             insurer: "Tata AIG Insurance",
-            policyId: "2394577640"
-        },
-        {
-            id: 2,
-            isExpiringSoon: false,
-            daysUntilExpiry: 45,
-            isGroup: true,
-            completionPercentage: 60,
-            policyType: "Health Insurance",
-            insurer: "HDFC Life",
-            policyId: "2394577641",
-            memberCount: 5
-        },
-        {
-            id: 3,
-            isExpiringSoon: true,
-            daysUntilExpiry: 7,
+            policyId: "2394577640",
+            fileName: "sample-health.pdf",
+            fileSize: 1024000,
+            uploadDate: new Date().toISOString(),
+            status: "Active" as const,
+            premium: "$450/month",
+            expiresOn: "Dec 31, 2024",
+            documentsCount: 3,
             isGroup: false,
-            completionPercentage: 45,
-            policyType: "Term Life Insurance",
-            insurer: "LIC India",
-            policyId: "2394577642"
-        },
-        {
-            id: 4,
-            isExpiringSoon: false,
-            daysUntilExpiry: 120,
-            isGroup: true,
-            completionPercentage: 100,
-            policyType: "Health Insurance",
-            insurer: "Star Health",
-            policyId: "2394577643",
-            memberCount: 8
-        },
-        {
-            id: 5,
+            memberCount: 1,
+            completionPercentage: 85,
             isExpiringSoon: true,
-            daysUntilExpiry: 25,
-            isGroup: false,
-            completionPercentage: 70,
-            policyType: "Motor Insurance",
+            daysUntilExpiry: 15
+        },
+        {
+            id: "sample-2",
+            policyType: "Travel Insurance",
             insurer: "Bajaj Allianz",
-            policyId: "2394577644"
+            policyId: "2394577644",
+            fileName: "sample-motor.pdf",
+            fileSize: 2048000,
+            uploadDate: new Date().toISOString(),
+            status: "Active" as const,
+            premium: "$320/month",
+            expiresOn: "Mar 15, 2025",
+            documentsCount: 2,
+            isGroup: false,
+            memberCount: 1,
+            completionPercentage: 70,
+            isExpiringSoon: true,
+            daysUntilExpiry: 25
+        },
+        {
+            id: "sample-2",
+            policyType: "Group Insurance",
+            insurer: "Bajaj Allianz",
+            policyId: "2394577644",
+            fileName: "sample-motor.pdf",
+            fileSize: 2048000,
+            uploadDate: new Date().toISOString(),
+            status: "Active" as const,
+            premium: "$320/month",
+            expiresOn: "Mar 15, 2025",
+            documentsCount: 2,
+            isGroup: true,
+            memberCount: 1,
+            completionPercentage: 100,
+            isExpiringSoon: true,
+            daysUntilExpiry: 25
         },
     ];
 
+    // Combine sample data with uploaded policies
+    const allPolicies = [...samplePolicyData, ...policyData];
+
     // Filter logic
     const filteredPolicies = filter === "All Types"
-        ? policyData
-        : policyData.filter(p => p.policyType === filter);
+        ? allPolicies
+        : allPolicies.filter(p => p.policyType === filter);
 
-    const handleRenewPolicy = (policyId: number) => {
+    const handleRenewPolicy = (policyId: string) => {
         console.log(`Renewing policy with ID: ${policyId}`);
         // Add your renewal logic here
     };
